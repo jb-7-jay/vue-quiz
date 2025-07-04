@@ -1,0 +1,158 @@
+Interactive Quiz Application with Timer and Results
+
+Description:
+Create a quiz app that presents a set of predefined questions. Users answer questions with immediate feedback, and a summary is shown at the end. This app highlights computed properties, watchers, dynamic components, and routing.
+
+Features to include:
+Vue Instance & Data Binding: Manage quiz questions and user answers.
+Directives (v-if, v-for, v-show): Render questions conditionally, show/hide feedback.
+Event Handling (v-on): Capture user answers and navigation between questions.
+Two-way Binding (v-model): Bind selected answers.
+Computed Properties & Watchers: Calculate score, watch for answer changes to update UI.
+Components (Global & Local): Question component, result summary component.
+Props & Events: Pass question data and emit answer events.
+Slots: Use named slots for question content and answer options.
+Dynamic & Async Components: Load different question types dynamically (e.g., multiple choice, true/false).
+Vue Router Basics: Routes for quiz start, question pages, and results page.
+Pinia for State Management: Store quiz progress and answers.
+Lifecycle Hooks: Initialize quiz data on created/mounted.
+Custom Directives: Highlight selected answers.
+Composables: Timer logic as a reusable composable.
+Teleport, Suspense, and <script setup>: Use teleport for modals (e.g., quiz instructions), suspense for loading question components, and script setup for clean component syntax.
+
+
+Quiz Application
+
+
+5 questions
+
+Question type:
+  - Single answer
+  - Multiple answer
+  - True/False
+
+Pages:
+
+1. '/'
+  - On click of start, it should prompt that please read instructions carefully, after that you'll not able to restart quiz
+2. '/quiz' 
+  - Quiz quesiton 1 by 1
+  - Show progress bar and timer
+  - Show immediate feedback
+3. '/quiz-summary'
+  - show result of the page
+  - show re-take button
+
+
+Wireframe:
+
+-> Home Page
+
+src/view/HomeView.vue
+  - Features
+    - Welcome to quiz
+    - Show some content
+    - Start button at the center, it should open instructions modal
+
+
+src/view/QuizView.vue
+  - Features
+    - Load questions
+  - Components
+      - src/components/QuizTimer.vue
+    - src/components/QuizLayout.vue
+      - src/components/QuizNavigator.Vue
+        - Show sidebar pannel - show question as attempted, answered, pending
+      - src/components/QuizProgress.vue
+    - src/components/quizView/Question.vue
+      - src/components/quizView/MultiChoiceQuestion.vue
+      - src/components/quizView/SingleChoiceQuestion.vue // it should internal handle Boolean type question also
+
+
+src/view/QuizSummary.vue
+  - Features
+    - Show Result
+  - Components
+
+
+Penia
+
+src/stores/useQuizStore.ts
+  - State
+    - questions
+    - quizStartedAt: timestamp - to handle timer
+
+
+//// Shape of the Question ////
+
+type QuestionType = "SingleChoice" | "MultipleChoice" | "Boolean";
+
+interface Option {
+  text: string;
+  isCorrect: boolean;
+}
+
+interface Question {
+  id?: string; // Optional: for unique identification
+  questionText: string;
+  questionType: QuestionType;
+  options: Option[];
+  explanation?: string; // Optional: for feedback after answer
+  image?: string; // Optional: for image-based questions
+}
+
+const questions = [
+  { 
+    id: 1, 
+    question: "What is the capital of France?",
+    questionType: "SingleChoice",
+    options: [
+      { text: "Paris", isCorrect: true },
+      { text: "London", isCorrect: false },
+      { text: "Berlin", isCorrect: false },
+      { text: "Madrid", isCorrect: false }
+    ]
+  },
+  {
+    id: 2, 
+    question: "Which planet is known as the Red Planet?",
+    questionType: "SingleChoice",
+    options: [
+      { text: "Earth", isCorrect: false },
+      { text: "Mars", isCorrect: true },
+      { text: "Jupiter", isCorrect: false },
+      { text: "Venus", isCorrect: false }
+    ]
+  },
+  {
+    id: 3, 
+    question: "Select all programming languages that are statically typed.",
+    questionType: "MultipleChoice",
+    options: [
+      { text: "TypeScript", isCorrect: true },
+      { text: "Java", isCorrect: true },
+      { text: "JavaScript", isCorrect: false },
+      { text: "Python", isCorrect: false }
+    ]
+  },
+  {
+    id: 4, 
+    question: "Which of the following are JavaScript frameworks?",
+    questionType: "MultipleChoice",
+    options: [
+      { text: "Vue.js", isCorrect: true },
+      { text: "React", isCorrect: true },
+      { text: "Laravel", isCorrect: false },
+      { text: "Angular", isCorrect: true }
+    ]
+  },
+  {
+    id: 5, 
+    question: "The Earth is flat.",
+    questionType: "Boolean",
+    options: [
+      { text: "True", isCorrect: false },
+      { text: "False", isCorrect: true }
+    ]
+  }
+];
