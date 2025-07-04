@@ -2,22 +2,31 @@ export const quizTime = 60 * 5 // 5 minutes in seconds
 
 export type QuestionType = 'SingleChoice' | 'MultipleChoice' | 'Boolean'
 
-export interface quizOption {
+export interface QuizOption {
   text: string
   isCorrect: boolean
 }
 
-export interface Question {
-  id?: string // Optional: for unique identification
+export interface QuestionResponse {
+  id: number
   question: string
   questionType: QuestionType
-  options: quizOption[]
-  explanation?: string // Optional: for feedback after answer
-  image?: string // Optional: for image-based questions
+  options: QuizOption[]
 }
 
-export const questionList: Question[] = [
+interface UserAnseredOption extends QuizOption {
+  correctAnswerByUser: boolean
+}
+
+export interface Question extends QuestionResponse {
+  status: QuestionStatus
+  options: UserAnseredOption[]
+  isAttempted: boolean
+}
+
+export const questionList: QuestionResponse[] = [
   {
+    id: 1,
     question: 'What is the capital of France?',
     questionType: 'SingleChoice',
     options: [
@@ -28,6 +37,7 @@ export const questionList: Question[] = [
     ],
   },
   {
+    id: 2,
     question: 'Which planet is known as the Red Planet?',
     questionType: 'SingleChoice',
     options: [
@@ -38,6 +48,7 @@ export const questionList: Question[] = [
     ],
   },
   {
+    id: 3,
     question: 'Select all programming languages that are statically typed.',
     questionType: 'MultipleChoice',
     options: [
@@ -48,6 +59,7 @@ export const questionList: Question[] = [
     ],
   },
   {
+    id: 4,
     question: 'Which of the following are JavaScript frameworks?',
     questionType: 'MultipleChoice',
     options: [
@@ -58,7 +70,59 @@ export const questionList: Question[] = [
     ],
   },
   {
+    id: 5,
     question: 'The Earth is flat.',
+    questionType: 'Boolean',
+    options: [
+      { text: 'True', isCorrect: false },
+      { text: 'False', isCorrect: true },
+    ],
+  },
+  {
+    id: 6,
+    question: 'Which language is primarily used for styling web pages?',
+    questionType: 'SingleChoice',
+    options: [
+      { text: 'HTML', isCorrect: false },
+      { text: 'CSS', isCorrect: true },
+      { text: 'JavaScript', isCorrect: false },
+      { text: 'Python', isCorrect: false },
+    ],
+  },
+  {
+    id: 7,
+    question: 'Which of the following are fruits?',
+    questionType: 'MultipleChoice',
+    options: [
+      { text: 'Apple', isCorrect: true },
+      { text: 'Carrot', isCorrect: false },
+      { text: 'Banana', isCorrect: true },
+      { text: 'Potato', isCorrect: false },
+    ],
+  },
+  {
+    id: 8,
+    question: 'React is maintained by Facebook.',
+    questionType: 'Boolean',
+    options: [
+      { text: 'True', isCorrect: true },
+      { text: 'False', isCorrect: false },
+    ],
+  },
+  {
+    id: 9,
+    question: 'Which of the following are valid HTTP methods?',
+    questionType: 'MultipleChoice',
+    options: [
+      { text: 'GET', isCorrect: true },
+      { text: 'POST', isCorrect: true },
+      { text: 'FETCH', isCorrect: false },
+      { text: 'PUT', isCorrect: true },
+    ],
+  },
+  {
+    id: 10,
+    question: 'Vue.js is a backend framework.',
     questionType: 'Boolean',
     options: [
       { text: 'True', isCorrect: false },
@@ -68,15 +132,15 @@ export const questionList: Question[] = [
 ]
 
 export enum QuestionStatus {
+  UNATTEMPTED = 'Unattempted',
+  ACTIVE = 'Active',
   RESPONDED = 'Responded',
   SKIPPED = 'Skipped',
-  ACTIVE = 'Active',
-  UNATTEMPTED = 'Unattempted',
 }
 
-export const questionStatusOptions = [
-  { value: QuestionStatus.RESPONDED, label: 'Responded', color: '#3ddc97' }, // parrot green
-  { value: QuestionStatus.SKIPPED, label: 'Skipped', color: '#a0aec0' }, // grey
-  { value: QuestionStatus.ACTIVE, label: 'Active', color: '#a259e6' }, // purple
-  { value: QuestionStatus.UNATTEMPTED, label: 'Unattempted', color: '#ffffff' }, // white
-]
+export const questionStatusOptionsMap = {
+  [QuestionStatus.UNATTEMPTED]: { label: 'Unattempted', color: '#ffffff' },
+  [QuestionStatus.ACTIVE]: { label: 'Active', color: '#a259e6' },
+  [QuestionStatus.RESPONDED]: { label: 'Responded', color: '#3ddc97' },
+  [QuestionStatus.SKIPPED]: { label: 'Skipped', color: '#a0aec0' },
+}

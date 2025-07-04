@@ -3,7 +3,7 @@
 </script>
 
 <template>
-  <div class="bg-gradient-to-br from-indigo-100 via-white to-indigo-200">
+  <div class="bg-gradient-to-br from-indigo-100 to-indigo-200">
     <header
       class="h-[70px] flex justify-between items-center bg-gradient-to-r from-purple-600 via-indigo-500 to-indigo-700 text-white px-12 py-5 shadow-xl rounded-b-3xl border-b-2 border-indigo-300/40 backdrop-blur-md transition-all duration-300"
     >
