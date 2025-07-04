@@ -7,6 +7,7 @@ import { onMounted } from 'vue'
 import QuizSidePanel from './QuizSidePanel.vue'
 import QuizHeader from './QuizHeader.vue'
 import QuizFooter from './QuizFooter.vue'
+import QuestionResolver from './QuestionResolver.vue'
 
 const quizStore = useQuizStore()
 
@@ -25,6 +26,8 @@ onMounted(async () => {
   }))
 
   quizStore.setQuestions(prepareInitialQuizStates)
+
+  quizStore.startQuiz()
 })
 </script>
 
@@ -36,16 +39,7 @@ onMounted(async () => {
       <div class="flex flex-col gap-8 h-full" v-if="quizStore.questions.length">
         <QuizHeader />
 
-        <!-- Progress Bar -->
-        <div></div>
-
-        <!-- Line Break -->
-        <div>
-          <h4 class="font-semibold">
-            {{ quizStore.curentQuestionIndex + 1 }}. {{ quizStore.currentQuestion?.question }}
-          </h4>
-          <!-- Question container -->
-        </div>
+        <QuestionResolver />
 
         <QuizFooter />
       </div>

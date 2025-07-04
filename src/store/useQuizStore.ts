@@ -1,9 +1,13 @@
-import { QuestionStatus, type Question } from '@/constants'
+import { QuestionStatus, type Question, quizTime } from '@/constants'
 import { defineStore } from 'pinia'
 import { computed, ref } from 'vue'
 
 const useQuizStore = defineStore('quiz', () => {
   const questions = ref<Question[]>([])
+
+  // Store timestamp to calculate quiz duration
+  const quizStartedAt = ref<Date | null>(null)
+  const quizEndAt = ref<Date | null>(null)
 
   const curentQuestionIndex = ref(0)
 
@@ -42,7 +46,32 @@ const useQuizStore = defineStore('quiz', () => {
     questions.value = questionResponse
   }
 
-  return { questions, setQuestions, curentQuestionIndex, onQuestionChange, currentQuestion }
+  // Start quiz: set start and end timestamps
+  const startQuiz = () => {
+    const now = new Date()
+    quizStartedAt.value = now
+    quizEndAt.value = new Date(now.getTime() + quizTime * 1000)
+  }
+
+  // Computed: seconds left
+  const quizTimeLeft = computed(() => {
+    if (!quizEndAt.value) return 0
+    const now = new Date()
+    const diff = Math.floor((quizEndAt.value.getTime() - now.getTime()) / 1000)
+    return diff > 0 ? diff : 0
+  })
+
+  return {
+    questions,
+    setQuestions,
+    curentQuestionIndex,
+    onQuestionChange,
+    currentQuestion,
+    quizStartedAt,
+    quizEndAt,
+    startQuiz,
+    quizTimeLeft,
+  }
 })
 
 export default useQuizStore
