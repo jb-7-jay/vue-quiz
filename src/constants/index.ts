@@ -1,5 +1,5 @@
-export const quizTime = 60 * 5 // 5 minutes in seconds
-// export const quizTime = 5 // 5 minutes in seconds
+export const quizTime = 60 * 2 // 2 minutes in seconds
+// export const quizTime = 10 // 2 minutes in seconds
 
 export type QuestionType = 'SingleChoice' | 'MultipleChoice' | 'Boolean'
 

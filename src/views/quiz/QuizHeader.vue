@@ -3,6 +3,8 @@ import useQuizStore from '@/store/useQuizStore'
 import { onMounted, ref } from 'vue'
 import { RouterLink } from 'vue-router'
 
+const emit = defineEmits(['on-submit-quiz'])
+
 const quizStore = useQuizStore()
 
 const timer = ref()
@@ -17,6 +19,8 @@ onMounted(() => {
       clearInterval(timer.value)
 
       console.log('Time is up! Ending quiz...')
+
+      emit('on-submit-quiz')
     }
   }, 1000)
 })

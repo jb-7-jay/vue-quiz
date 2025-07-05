@@ -101,6 +101,7 @@ const useQuizStore = defineStore('quiz', () => {
     return {
       userScore,
       totalScore,
+      percentage: parseFloat(((userScore / totalScore) * 100).toFixed(2)),
     }
   })
 

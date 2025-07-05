@@ -8,8 +8,10 @@ import QuizSidePanel from './QuizSidePanel.vue'
 import QuizHeader from './QuizHeader.vue'
 import QuizFooter from './QuizFooter.vue'
 import QuestionResolver from './QuestionResolver.vue'
+import { useRouter } from 'vue-router'
 
 const quizStore = useQuizStore()
+const router = useRouter()
 
 onMounted(async () => {
   const questionResponse = await getQuestionList()
@@ -29,6 +31,12 @@ onMounted(async () => {
 
   quizStore.startQuiz()
 })
+
+const onSubmitQuiz = () => {
+  console.log('Submitting quiz...')
+  // alert('Time is up!, you will be redirected to the summary page.')
+  router.push('/quiz/summary')
+}
 </script>
 
 <template>
@@ -37,11 +45,11 @@ onMounted(async () => {
 
     <main class="w-full bg-gray-50 rounded-2xl shadow-lg p-6">
       <div class="flex flex-col gap-8 h-full" v-if="quizStore.questions.length">
-        <QuizHeader />
+        <QuizHeader @on-submit-quiz="onSubmitQuiz" />
 
         <QuestionResolver />
 
-        <QuizFooter />
+        <QuizFooter @on-submit-quiz="onSubmitQuiz" />
       </div>
 
       <div v-else class="animate-bounce">Loading...</div>
