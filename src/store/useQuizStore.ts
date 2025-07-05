@@ -46,6 +46,29 @@ const useQuizStore = defineStore('quiz', () => {
     questions.value = questionResponse
   }
 
+  const onQuestionUpdate = (optionIndex: number, event: Event) => {
+    const eventTarget = event.target as HTMLInputElement
+
+    questions.value.forEach((question, idx) => {
+      if (currentQuestion.value?.id === question.id) {
+        const questionDetails = questions.value[idx]
+
+        questionDetails.options.forEach((option, optIdx) => {
+          if (question.questionType === 'SingleChoice') {
+            option.correctAnswerByUser = optIdx === optionIndex ? eventTarget.checked : false
+          }
+
+          if (question.questionType === 'MultipleChoice') {
+            option.correctAnswerByUser =
+              optIdx === optionIndex ? eventTarget.checked : option.correctAnswerByUser
+          }
+        })
+
+        questionDetails.isAttempted = true
+      }
+    })
+  }
+
   // Start quiz: set start and end timestamps
   const startQuiz = () => {
     const now = new Date()
@@ -61,6 +84,26 @@ const useQuizStore = defineStore('quiz', () => {
     return diff > 0 ? diff : 0
   })
 
+  const quizScore = computed(() => {
+    const totalScore = questions.value.length || 0
+    const userScore = questions.value.reduce((score, question) => {
+      const correctAnswers = question.options.filter(
+        (option) => option.isCorrect && option.correctAnswerByUser,
+      ).length
+
+      if (correctAnswers > 0) {
+        score += 1
+      }
+
+      return score
+    }, 0)
+
+    return {
+      userScore,
+      totalScore,
+    }
+  })
+
   return {
     questions,
     setQuestions,
@@ -71,6 +114,8 @@ const useQuizStore = defineStore('quiz', () => {
     quizEndAt,
     startQuiz,
     quizTimeLeft,
+    onQuestionUpdate,
+    quizScore,
   }
 })
 

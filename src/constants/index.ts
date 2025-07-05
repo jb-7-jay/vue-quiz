@@ -73,7 +73,7 @@ export const questionList: QuestionResponse[] = [
   {
     id: 5,
     question: 'The Earth is flat.',
-    questionType: 'Boolean',
+    questionType: 'SingleChoice',
     options: [
       { text: 'True', isCorrect: false },
       { text: 'False', isCorrect: true },
@@ -104,7 +104,7 @@ export const questionList: QuestionResponse[] = [
   {
     id: 8,
     question: 'React is maintained by Facebook.',
-    questionType: 'Boolean',
+    questionType: 'SingleChoice',
     options: [
       { text: 'True', isCorrect: true },
       { text: 'False', isCorrect: false },
@@ -124,7 +124,7 @@ export const questionList: QuestionResponse[] = [
   {
     id: 10,
     question: 'Vue.js is a backend framework.',
-    questionType: 'Boolean',
+    questionType: 'SingleChoice',
     options: [
       { text: 'True', isCorrect: false },
       { text: 'False', isCorrect: true },
