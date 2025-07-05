@@ -1,7 +1,12 @@
 <script setup lang="ts">
 import { questionStatusOptionsMap } from '@/constants'
 import useQuizStore from '@/store/useQuizStore'
+import { ref } from 'vue'
+
+import InstructionModal from './InstructionModal.vue'
+
 const quizStore = useQuizStore()
+const showInstructions = ref(false)
 </script>
 
 <template>
@@ -50,10 +55,13 @@ const quizStore = useQuizStore()
       <div class="mt-auto flex justify-between items-center gap-4 pt-6 border-t border-gray-200">
         <button
           class="mx-auto py-2 px-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl shadow hover:from-indigo-600 hover:to-purple-600 transition-all duration-200 font-semibold"
+          @click="showInstructions = true"
         >
           Read Instructions
         </button>
       </div>
     </div>
+
+    <InstructionModal v-if="showInstructions" @close="showInstructions = false" />
   </aside>
 </template>
