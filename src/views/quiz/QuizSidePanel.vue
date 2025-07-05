@@ -6,12 +6,12 @@ const quizStore = useQuizStore()
 
 <template>
   <aside class="w-[340px] bg-gray-50 rounded-2xl shadow-lg p-6 flex flex-col gap-8 min-h-[80vh]">
-    <div class="text-lg font-semibold text-indigo-700 text-center pb-2 border-b border-indigo-100">
-      Jay Bhingradiya
+    <div class="flex items-center justify-center bg-white rounded-xl shadow h-[72px]">
+      <span class="text-xl font-bold text-indigo-700 tracking-wide">Jay Bhingradiya</span>
     </div>
 
     <div class="flex-1 flex flex-col gap-6">
-      <p class="font-bold text-gray-700 mb-2">Navigation Panel</p>
+      <p class="font-bold text-gray-700">Navigation Panel</p>
       <div class="grid grid-cols-5 gap-x-4 gap-y-2">
         <button
           class="flex justify-center items-center w-9 h-9 rounded-full transition-all duration-200 cursor-pointer border-2 hover:scale-110 border-indigo-100 hover:border-indigo-300"
@@ -46,11 +46,14 @@ const quizStore = useQuizStore()
           </div>
         </div>
       </div>
-      <button
-        class="py-2 px-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl shadow hover:from-indigo-600 hover:to-purple-600 transition-all duration-200 font-semibold"
-      >
-        Read Instructions
-      </button>
+
+      <div class="mt-auto flex justify-between items-center gap-4 pt-6 border-t border-gray-200">
+        <button
+          class="mx-auto py-2 px-4 bg-gradient-to-r from-indigo-500 to-purple-500 text-white rounded-xl shadow hover:from-indigo-600 hover:to-purple-600 transition-all duration-200 font-semibold"
+        >
+          Read Instructions
+        </button>
+      </div>
     </div>
   </aside>
 </template>

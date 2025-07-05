@@ -35,7 +35,7 @@ function formatTime(seconds: number) {
 </script>
 
 <template>
-  <div class="flex items-center justify-between gap-6 p-4 bg-white rounded-xl shadow mb-4">
+  <div class="flex items-center justify-between gap-6 p-4 bg-white rounded-xl shadow">
     <RouterLink to="/">
       <button
         class="py-2 px-4 rounded-lg bg-gradient-to-r from-indigo-400 to-purple-500 text-white font-semibold shadow hover:from-indigo-500 hover:to-purple-600 transition-all duration-200"
