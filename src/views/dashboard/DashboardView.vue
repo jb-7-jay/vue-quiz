@@ -10,7 +10,7 @@
       <div class="text-5xl font-extrabold text-indigo-700 drop-shadow-xl mb-2 text-center">
         Welcome to the Vue Quiz App!
       </div>
-      <div class="text-lg text-gray-600 mb-6 max-w-xl text-center">
+      <div v-highlight class="text-lg text-gray-600 mb-6 max-w-xl text-center">
         Test your knowledge with our interactive quiz.<br />Click the button below to get started
         and see how much you know!
       </div>

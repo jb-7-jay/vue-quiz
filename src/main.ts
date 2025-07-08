@@ -11,4 +11,9 @@ const app = createApp(App)
 app.use(router)
 
 app.use(createPinia())
+
+app.directive('highlight', (el) => {
+  el.style.backgroundColor = 'lightyellow'
+})
+
 app.mount('#app')
